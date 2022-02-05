@@ -41,6 +41,15 @@
 
 #define DAC_CS 10
 
+#define GATE_1 26
+#define GATE_2 27
+#define GATE_3 28
+#define GATE_4 29
+#define GATE_5 30
+#define GATE_6 31
+
+#define CLKIN 25
+
 #ifdef VOR
   #define but_mid 9
 #else
