@@ -22,7 +22,7 @@ void OC::GateOutputs::Init() {
 }
 
  void OC::GateOutputs::Gateout(int ch, int value) {
-        digitalWriteFast(gate_pins[ch-4],value);    
+        digitalWriteFast(gate_pins[ch],value);    
  }
 
 

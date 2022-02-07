@@ -307,7 +307,7 @@ public:
               } else changed_cv[ch] = 0;
             }
             if (clock_countdown[ch] > 0) {
-                if (--clock_countdown[ch] == 0) OC::GateOutputs::Gateout(ch, 0);
+                if (--clock_countdown[ch] == 0) OC::GateOutputs::Gateout(ch-4, 0);
             }
         }
 
@@ -405,7 +405,7 @@ public:
             note_in[ch] = -1;
             indicator_in[ch] = 0;
             if(ch > 3) {
-              OC::GateOutputs::Gateout(ch, 0);
+              OC::GateOutputs::Gateout(ch-4, 0);
             }
             if(ch < 4) {
               note_out[ch] = -1;
@@ -523,10 +523,7 @@ public:
         return high;
     }
 
-    void GateOut(int ch, bool high) {
-        //Out(ch, 0, (high ? PULSE_VOLTAGE : 0));
-        OC::GateOutputs::Gateout(ch, (high ? 1 : 0));
-    }
+    
 
     bool Clock(int ch) {
         bool clocked = 0;
@@ -543,7 +540,7 @@ public:
 
     void ClockOut(int ch, int ticks = 100) {
         clock_countdown[ch] = ticks;
-        OC::GateOutputs::Gateout(ch, 1);
+        OC::GateOutputs::Gateout(ch-4, 1);
     }
 
     void StartADCLag(int ch) {adc_lag_countdown[ch] = 96;}
@@ -958,7 +955,7 @@ private:
 
                         if (in_fn == MIDI_IN_GATE && !gate_captured && (ch > 3)) {
                             // Send a gate at Note On
-                            GateOut(ch, 1);
+                            OC::GateOutputs::Gateout(ch-4, 1);
                             indicator = 1;
                             gate_captured = 1;
                             note_in[ch] = data1;
@@ -984,7 +981,7 @@ private:
                         note_in[ch] = -1;
                         if (in_fn == MIDI_IN_GATE && (ch > 3)) {
                             // Turn off gate on Note Off
-                            GateOut(ch, 0);
+                            OC::GateOutputs::Gateout(ch-4,0);
                             indicator = 1;
                         } else if (in_fn == MIDI_IN_NOTE && (ch < 4)) {
                             // Log Note Off on the note assignment
