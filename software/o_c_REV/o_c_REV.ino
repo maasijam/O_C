@@ -28,6 +28,7 @@
 #include "OC_apps.h"
 #include "OC_core.h"
 #include "OC_DAC.h"
+#include "OC_gate_outputs.h"
 #include "OC_debug.h"
 #include "OC_gpio.h"
 #include "OC_ADC.h"
@@ -108,6 +109,7 @@ void setup() {
   OC::ADC::Init(&OC::calibration_data.adc); // Yes, it's using the calibration_data before it's loaded...
   OC::ADC::Init_DMA();
   OC::DAC::Init(&OC::calibration_data.dac);
+  OC::GateOutputs::Init();
 
   display::Init();
 
