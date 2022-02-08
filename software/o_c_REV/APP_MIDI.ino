@@ -306,8 +306,8 @@ public:
                   last_cv[ch] = inputs[ch];
               } else changed_cv[ch] = 0;
             }
-            if (clock_countdown[ch] > 0) {
-                if (--clock_countdown[ch] == 0) OC::GateOutputs::Gateout(ch, 0);
+            if (clock_countdown[ch] > 0 && ch > 3) {
+                if (--clock_countdown[ch] == 0) GateOut(ch, 0);
             }
         }
 
@@ -350,6 +350,12 @@ public:
 
     int In(int ch) {
         return inputs[ch];
+    }
+
+    void GateOut(int ch, bool high) {
+        if(ch > 3) {
+          OC::GateOutputs::Gateout(ch-4,(high ? 1 : 0));
+        }
     }
 
 
@@ -405,7 +411,7 @@ public:
             note_in[ch] = -1;
             indicator_in[ch] = 0;
             if(ch > 3) {
-              OC::GateOutputs::Gateout(ch, 0);
+              GateOut(ch, 0);
             }
             if(ch < 4) {
               note_out[ch] = -1;
@@ -523,10 +529,7 @@ public:
         return high;
     }
 
-    void GateOut(int ch, bool high) {
-        //Out(ch, 0, (high ? PULSE_VOLTAGE : 0));
-        OC::GateOutputs::Gateout(ch, (high ? 1 : 0));
-    }
+    
 
     bool Clock(int ch) {
         bool clocked = 0;
@@ -543,7 +546,9 @@ public:
 
     void ClockOut(int ch, int ticks = 100) {
         clock_countdown[ch] = ticks;
-        OC::GateOutputs::Gateout(ch, 1);
+        if(ch > 3) {
+          GateOut(ch, 1);
+        }
     }
 
     void StartADCLag(int ch) {adc_lag_countdown[ch] = 96;}
