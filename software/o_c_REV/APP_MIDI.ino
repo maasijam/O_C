@@ -59,8 +59,8 @@ const char* const midi_in_functions[6] = {
 const char* const midi_in_gate_functions[8] = {
     "--", "Gate", "Trig", "Hold", "Qtr", "8th", "16th", "24ppq"
 };
-const char* const midi_out_functions[12] = {
-    "--", "Note", "Leg.", "Veloc", "Mod", "Aft", "Bend", "Expr", "Pan", "Hold", "Brth", "yAxis"
+const char* const midi_out_functions[7] = {
+    "--", "Note", "Leg.", "Veloc", "Aft", "Bend", "CC"
 };
 
 #define MIDI_SETUP_PARAMETER_LIST \
@@ -74,10 +74,10 @@ const char* const midi_out_functions[12] = {
 { 0, 0, 7, "MIDI > G4", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 7, "MIDI > G5", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 7, "MIDI > G6", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 11, "1 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 11, "2 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 11, "3 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 11, "4 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "1 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "2 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "3 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "4 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > A", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > B", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > C", midi_channels, settings::STORAGE_TYPE_U8 },\
@@ -144,10 +144,10 @@ const char* const midi_out_functions[12] = {
 { 0, 0, 127, "MIDI > G4", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI > G5", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI > G6", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "1 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "2 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "3 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "4 > MIDI", NULL, settings::STORAGE_TYPE_I8 },
+{ 0, 0, 127, "1 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "2 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "3 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "4 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },
 
 enum MIDI_IN_FUNCTION {
     MIDI_IN_OFF,
@@ -174,14 +174,9 @@ enum MIDI_OUT_FUNCTION {
     MIDI_OUT_NOTE,
     MIDI_OUT_LEGATO,
     MIDI_OUT_VELOCITY,
-    MIDI_OUT_MOD,
     MIDI_OUT_AFTERTOUCH,
     MIDI_OUT_PITCHBEND,
-    MIDI_OUT_EXPRESSION,
-    MIDI_OUT_PAN,
-    MIDI_OUT_HOLD,
-    MIDI_OUT_BREATH,
-    MIDI_OUT_Y_AXIS,
+    MIDI_OUT_CC,
 };
 
 const char* const midi_messages[7] = {
@@ -750,7 +745,8 @@ private:
                 // Indicate if the assignment is a note type
                 if (get_out_channel(p) > 0 && (get_out_assign(p) == MIDI_OUT_NOTE || get_out_assign(p) == MIDI_OUT_LEGATO))
                     graphics.drawBitmap8(56, list_item.y + 1, 8, MIDI_note_icon);
-                else if (screen > 1) suppress = 1;
+                else if (screen > 1 && (get_out_assign(p) != MIDI_OUT_CC)) suppress = 1;
+                else if ((screen > 1 && screen < 5) && (get_out_assign(p) == MIDI_OUT_CC)) suppress = 1;
             }
 
             // Draw the item last so that if it's selected, the icons are reversed, too
@@ -875,14 +871,9 @@ private:
             // Handle other messages
             if (Changed(ch)) {
                 // Modulation wheel
-                if (out_fn == MIDI_OUT_MOD || out_fn >= MIDI_OUT_EXPRESSION) {
-                    int cc = 1; // Modulation wheel
-                    if (out_fn == MIDI_OUT_EXPRESSION) cc = 11;
-                    if (out_fn == MIDI_OUT_PAN) cc = 10;
-                    if (out_fn == MIDI_OUT_HOLD) cc = 64;
-                    if (out_fn == MIDI_OUT_BREATH) cc = 2;
-                    if (out_fn == MIDI_OUT_Y_AXIS) cc = 74;
-
+                if (out_fn == MIDI_OUT_CC) {
+                    int cc = get_out_cc(ch);
+                    
                     int value = Proportion(In(ch), HSAPPLICATION_5V, 127);
                     value = constrain(value, 0, 127);
                     if (cc == 64) value = (value >= 60) ? 127 : 0; // On or off for sustain pedal
@@ -1117,6 +1108,11 @@ private:
         int range_low = values_[52 + ch + setup_offset];
         int range_high = values_[66 + ch + setup_offset];
         return (note >= range_low && note <= range_high);
+    }
+
+    int get_out_cc(int ch) {
+        int setup_offset = get_setup_number() * MIDI_PARAMETER_COUNT;
+        return values_[80 + ch + setup_offset];
     }
 
     void UpdateLog(bool midi_in, int ch, uint8_t message, uint8_t channel, int16_t data1, int16_t data2) {
