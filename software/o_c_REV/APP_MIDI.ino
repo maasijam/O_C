@@ -57,7 +57,7 @@ const char* const midi_in_functions[6] = {
     "--", "Note", "Veloc", "Aft", "Bend", "CC"
 };
 const char* const midi_in_gate_functions[8] = {
-    "--", "Gate", "Trig", "Hold", "Qtr", "8th", "16th", "24ppq"
+    "--", "Gate", "Trig", "Hold", "4th", "8th", "16th", "24ppq"
 };
 const char* const midi_out_functions[7] = {
     "--", "Note", "Leg.", "Veloc", "Aft", "Bend", "CC"
@@ -726,8 +726,10 @@ private:
 
                 // Indicate if the assignment is a clock
                 if (get_in_assign(p) >= MIDI_IN_CLOCK_4TH && (p > 3)) {
-                    uint8_t o_x = (clock_count < 12) ? 2 : 0;
-                    graphics.drawBitmap8(80 + o_x, list_item.y + 1, 8, MIDI_clock_icon);
+                    if (screen == 0) {
+                      uint8_t o_x = (clock_count < 12) ? 2 : 0;
+                      graphics.drawBitmap8(80 + o_x, list_item.y + 1, 8, MIDI_clock_icon);
+                    }
                     if (screen > 0) suppress = 1;
                 }
 
