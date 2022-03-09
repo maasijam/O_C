@@ -74,10 +74,10 @@ const char* const midi_out_functions[7] = {
 { 0, 0, 7, "MIDI > G4", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 7, "MIDI > G5", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 7, "MIDI > G6", midi_in_gate_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 6, "1 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 6, "2 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 6, "3 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 6, "4 > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "A > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "B > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "C > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 6, "D > MIDI", midi_out_functions, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > A", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > B", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > C", midi_channels, settings::STORAGE_TYPE_U8 },\
@@ -88,10 +88,10 @@ const char* const midi_out_functions[7] = {
 { 0, 0, 16, "MIDI > G4", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > G5", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 16, "MIDI > G6", midi_channels, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 16, "1 > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 16, "2 > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 16, "3 > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 16, "4 > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 16, "A > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 16, "B > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 16, "C > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 16, "D > MIDI", midi_channels, settings::STORAGE_TYPE_U8 },\
 { 0, -24, 24, "MIDI > A", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, -24, 24, "MIDI > B", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, -24, 24, "MIDI > C", NULL, settings::STORAGE_TYPE_I8 },\
@@ -102,10 +102,10 @@ const char* const midi_out_functions[7] = {
 { 0, -24, 24, "MIDI > G4", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, -24, 24, "MIDI > G5", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, -24, 24, "MIDI > G6", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, -24, 24, "1 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, -24, 24, "2 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, -24, 24, "3 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, -24, 24, "4 > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, -24, 24, "A > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, -24, 24, "B > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, -24, 24, "C > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, -24, 24, "D > MIDI", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI > A", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > B", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > C", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
@@ -116,10 +116,10 @@ const char* const midi_out_functions[7] = {
 { 0, 0, 127, "MIDI > G4", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > G5", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > G6", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 127, "1 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 127, "2 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 127, "3 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 0, 0, 127, "4 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 127, "A > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 127, "B > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 127, "C > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 0, 0, 127, "D > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > A", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > B", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > C", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
@@ -130,10 +130,10 @@ const char* const midi_out_functions[7] = {
 { 0, 0, 127, "MIDI > G4", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > G5", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI > G6", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 127, 0, 127, "1 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 127, 0, 127, "2 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 127, 0, 127, "3 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
-{ 127, 0, 127, "4 > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 127, 0, 127, "A > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 127, 0, 127, "B > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 127, 0, 127, "C > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
+{ 127, 0, 127, "D > MIDI", midi_note_numbers, settings::STORAGE_TYPE_U8 },\
 { 0, 0, 127, "MIDI >A CC Num", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI >B CC Num", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI >C CC Num", NULL, settings::STORAGE_TYPE_I8 },\
@@ -144,10 +144,10 @@ const char* const midi_out_functions[7] = {
 { 0, 0, 127, "MIDI > G4", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI > G5", NULL, settings::STORAGE_TYPE_I8 },\
 { 0, 0, 127, "MIDI > G6", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "1 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "2 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "3 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },\
-{ 0, 0, 127, "4 > MIDI CC", NULL, settings::STORAGE_TYPE_I8 },
+{ 0, 0, 127, "A >MIDI CC Num", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "B >MIDI CC Num", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "C >MIDI CC Num", NULL, settings::STORAGE_TYPE_I8 },\
+{ 0, 0, 127, "D >MIDI CC Num", NULL, settings::STORAGE_TYPE_I8 },
 
 enum MIDI_IN_FUNCTION {
     MIDI_IN_OFF,
