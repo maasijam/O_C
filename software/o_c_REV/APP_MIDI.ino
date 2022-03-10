@@ -755,7 +755,8 @@ private:
             if (!suppress) list_item.DrawDefault(value, CaptainMIDI::value_attr(current));
             else {
                 list_item.SetPrintPos();
-                graphics.print("                   --");
+                //graphics.print("                   --");
+                list_item.DrawName(CaptainMIDI::value_attr(current));
                 list_item.DrawCustom();
             }
         }
